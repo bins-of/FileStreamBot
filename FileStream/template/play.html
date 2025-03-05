@@ -1,171 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FileStreamBot | {{file_name}}</title>
-    <link rel="icon" href="https://i.ibb.co/Hh4kF2b/icon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="https://i.ibb.co/Hh4kF2b/icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://unpkg.com/sheryjs/dist/Shery.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/proavipatil/data@main/fs/src/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/proavipatil/data@main/fs/src/plyr.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>RM Movie Flix - {{file_name}}</title>
+    
+    <!-- Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
+    <style>
+        :root {
+            --primary-color: #ff4757;
+            --secondary-color: #2ed573;
+            --gradient: linear-gradient(45deg, #ff6b6b, #ff4757);
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .telegram-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .telegram-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .player-wrapper {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 2px solid var(--primary-color);
+            background: #000;
+        }
+
+        .plyr__controls {
+            background: rgba(0,0,0,0.8)!important;
+            backdrop-filter: blur(5px);
+        }
+
+        .channel-btn {
+            background: var(--gradient);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .channel-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255,107,107,0.3);
+        }
+
+        .file-title {
+            background: linear-gradient(45deg, #ff6b6b, #ff4757);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(255,107,107,0.3);
+        }
+    </style>
 </head>
+<body class="bg-dark">
 
-<body>
-    <nav>
-        <div class="nleft">
-            <a href="#">
-                <h3 id="heading" style="z-index: 100;" class="magnet title">FILE STREAM</h3>
+    <!-- Header -->
+    <nav class="navbar navbar-dark bg-black py-3 border-bottom border-secondary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="https://graph.org/file/a2a5f992017154465d837-f466c45f3fb3a32b70.png" alt="Logo" width="40" class="me-2">
+                <span class="file-title fw-bold">(RM Movie Flix) {{file_name}}</span>
             </a>
         </div>
-        <div class="nryt">
-            <a class="home-btn magnet" href="#main" onclick="toggleWidthnav(this)">HOME</a>
-
-            <a href="#abtus" class="about-btn magnet" onclick="toggleWidthnav(this)">ABOUT</a>
-        </div>
     </nav>
-    <center>
-        <div class="about-nav">
-            <a href="#abtus" class="wlcm magnet" onclick="toggleWidth(this)">WELCOME</a>
-            <a href="#channels" class="abt-chnl magnet" onclick="toggleWidth(this)">CHANNELS</a>
-            <a href="#contact" class="magnet contact-btn" onclick="toggleWidth(this)">CONTACT</a>
-        </div>
-    </center>
 
-    <div class="outer">
-        <div class="inner">
-            <div class="main" id="main">
-                <video id="player" class="player" src="{{file_url}}" type="video/mp4" playsinline controls
-                    width="100%"></video>
-                <div class="player"></div>
-                <div class="file-name">
-                    <h4 style="display: inline;">File Name: </h4>
-                    <p style="display: inline;" id="myDiv">{{file_name}}</p><br>
-                    <h4 style="display: inline;">File Size: </h4>
-                    <p style="display: inline;">{{file_size}}</p>
-                </div>
-                <div class="downloadBtn">
-                    <button class="magnet" onclick="streamDownload()">
-                        <img style="height: 30px;" src="https://i.ibb.co/RjzYttX/dl.png" alt="">download video
-                    </button>
-                    <button class="magnet" onclick="copyStreamLink()">
-                        <img src="https://i.ibb.co/CM4Y586/link.png" alt="Copy Link">copy link
-                    </button>
-                    <button class="magnet" onclick="vlc_player()">
-                        <img src="https://i.ibb.co/px6fQs1/vlc.png" alt="">watch in VLC PLAYER
-                    </button>
-                    <button class="magnet" onclick="mx_player()">
-                        <img src="https://i.ibb.co/41WvtQ3/mx.png" alt="">watch in MX PLAYER
-                    </button>
-                    <button class="magnet" onclick="n_player()">
-                        <img src="https://i.ibb.co/Hd2dS4t/nPlayer.png" alt="">watch in nPlayer
-                    </button>
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Video Player Section -->
+        <div class="row g-4">
+            <!-- Player Column -->
+            <div class="col-lg-8">
+                <div class="player-wrapper wow animate__fadeInLeft">
+                    <video id="player" playsinline controls data-poster="https://envs.sh/Ti2.jpg">
+                        <source src="{{file_url}}" type="video/mp4">
+                    </video>
                 </div>
 
+                <!-- Player Controls -->
+                <div class="mt-4 text-center wow animate__fadeInUp">
+                    <button onclick="downloadMedia()" class="channel-btn me-2">
+                        <i class='bx bxs-download'></i> 📥 Download Now 📥
+                    </button>
+                    <button class="channel-btn" data-bs-toggle="modal" data-bs-target="#shareModal">
+                        <i class='bx bx-share-alt'></i> 🔗 Share
+                    </button>
+                </div>
             </div>
-            <div class="abt">
-                <div class="about">
-                    <div class="about-dets">
 
-                        <div class="abt-sec" id="abtus" style="padding: 160px 30px;">
-                            <h1 style="text-align: center;">WELCOME TO OUR <Span>FILE STREAM</Span> BOT</h1>
-                            <p style="text-align: center; line-height: 2;word-spacing: 2px;  letter-spacing: 0.8px;">
-                                This is a Telegram Bot to Stream <span>Movies</span> and <span>Series</span> directly on
-                                Telegram. You can also
-                                <span>download</span> them if you want. This bot is developed by <a
-                                    href="https://github.com/AviPatilPro"><span style="font-weight: 700;">Avi</span></a>
-                                <br><br>If you like this bot, then don't
-                                forget to share it with your friends and family.
-                            </p>
+            <!-- Telegram Channels Column -->
+            <div class="col-lg-4">
+                <div class="p-4 telegram-card wow animate__fadeInRight">
+                    <h4 class="mb-4 text-center"><i class='bx bxl-telegram'></i> Join Our Channels</h4>
+                    
+                    <div class="row g-3">
+                        <!-- Main Channel -->
+                        <div class="col-12">
+                            <a href="https://t.me/RM_Movie_Flix" target="_blank" class="btn btn-dark w-100 d-flex align-items-center">
+                                <i class='bx bxs-movie-play fs-4 me-2'></i>
+                                <div class="text-start">
+                                    <div class="small">Main Channel</div>
+                                    <div class="fw-bold">RM Movie Flix</div>
+                                </div>
+                            </a>
                         </div>
 
-                        <div class="abt-sec" id="channels">
-                            <h1>JOIN OUR <span>TELEGRAM</span> CHANNELS</h1>
-                            <div class="links chnl-link">
-                                <a class="magnet" href="https://t.me/CheapieDeals">
-                                    <button>CHEAP DEALS</button>
-                                </a>
-                                <a class="magnet" href="https://t.me/FilmyPixel">
-                                    <button>FILMYPIXEL</button>
-                                </a>
-                                <a class="magnet" href="https://t.me/PostersZone">
-                                    <button>POSTERS ZONE</button>
-                                </a>
-                                <a class="magnet" href="https://t.me/EpitomeQuality">
-                                    <button>EPITOME QUALITY</button>
-                                </a>
-                            </div>
+                        <!-- Backup Channel -->
+                        <div class="col-12">
+                            <a href="https://t.me/RM_Movi" target="_blank" class="btn btn-dark w-100 d-flex align-items-center">
+                                <i class='bx bx-cloud-download fs-4 me-2'></i>
+                                <div class="text-start">
+                                    <div class="small">Backup Channel</div>
+                                    <div class="fw-bold">RM Movie Backup</div>
+                                </div>
+                            </a>
                         </div>
 
-                        <div class="abt-sec" id="contact">
-                            <p style="text-align: center;">Report Bugs and Contact us on Telegram Below</p>
-                            <div class="links contact">
-                                <a href="https://t.me/AvishkarPatil">
-                                    <button>CONTACT</button>
-                                </a>
-                            </div>
+                        <!-- Request Group -->
+                        <div class="col-12">
+                            <a href="https://t.me/Moviies_Adda" target="_blank" class="btn btn-dark w-100 d-flex align-items-center">
+                                <i class='bx bx-group fs-4 me-2'></i>
+                                <div class="text-start">
+                                    <div class="small">Movies Update</div>
+                                    <div class="fw-bold">Movie Update</div>
+                                </div>
+                            </a>
                         </div>
 
+                        <!-- Update Channel -->
+                        <div class="col-12">
+                            <a href="https://t.me/RM_Movie_Flix" target="_blank" class="btn btn-dark w-100 d-flex align-items-center">
+                                <i class='bx bx-news fs-4 me-2'></i>
+                                <div class="text-start">
+                                    <div class="small">Updates</div>
+                                    <div class="fw-bold">Chanel News</div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <footer>
-            <center>
+    </main>
 
-                <div class="movie-cont">
-                    <div class="movieSug">
-                        <div class="movieDets">
-
+    <!-- Share Modal -->
+    <div class="modal fade" id="shareModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title"><i class='bx bx-share-alt me-2'></i>Share This Movie</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <a href="https://t.me/share/url?url={{current_url}}&text=Watch {{file_name}}" 
+                               class="btn btn-telegram w-100" target="_blank">
+                                <i class='bx bxl-telegram'></i> Telegram
+                            </a>
                         </div>
-                        <div class="movieimg">
-                            <img src="">
+                        <div class="col-6">
+                            <button onclick="copyLink()" class="btn btn-primary w-100">
+                                <i class='bx bx-copy'></i> Copy Link
+                            </button>
                         </div>
                     </div>
-                    <div class="low-width-movie-dets">
-                        <div class="movieStsBar">
-                            <div class="movieDets-mini">
-
-                            </div>
-                        </div>
-                    </div>
-                    <button class="ranMovBtn" onclick="getDets()">Get More Movies Suggestion</button>
                 </div>
-
-            </center>
-
-            <center>
-                <div class="copyright">
-                    <h5 class="text-center">Copyright © 2024 <a href="https://github.com/AviPatilPro"><span
-                                style="font-weight: 700;">Avishkar Patil</span></a>. All
-                        Rights Reserved.</h5>
-                </div>
-            </center>
-        </footer>
+            </div>
+        </div>
     </div>
-</body>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.155.0/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/automat/controlkit.js@master/bin/controlKit.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sheryjs/dist/Shery.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const uncopyableElement = document.querySelector(".uncopyable");
-
-        uncopyableElement.addEventListener("selectstart", function (event) {
-            event.preventDefault();
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    
+    <script>
+        // Initialize Plyr player
+        const player = new Plyr('#player', {
+            settings: ['quality', 'speed', 'loop'],
+            keyboard: { focused: true, global: true }
         });
-    });
-</script>
-<script src="https://cdn.plyr.io/3.6.9/plyr.js"></script>
-<script src="https://proavipatil.github.io/data/fs/src/script.js"></script>
 
+        // Initialize animations
+        new WOW().init();
+
+        // Player functions
+        const currentUrl = encodeURIComponent(window.location.href);
+        
+        function downloadMedia() {
+            window.location.href = "{{file_url}}";
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('Link copied to clipboard!');
+        }
+
+        // Player quality selector (example)
+        player.on('ready', event => {
+            const qualities = [
+                { name: '480p', resolution: 480 },
+                { name: '1080p', resolution: 1080 },
+                { name: '720p', resolution: 720 }
+            ];
+            
+            player.options.quality = {
+                default: 480,
+                options: qualities,
+                forced: true,
+                onChange: quality => console.log(quality)
+            };
+        });
+    </script>
+</body>
 </html>
