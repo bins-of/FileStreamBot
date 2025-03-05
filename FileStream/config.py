@@ -4,24 +4,24 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Telegram:
-    API_ID = int(env.get("API_ID"))
-    API_HASH = str(env.get("API_HASH"))
-    BOT_TOKEN = str(env.get("BOT_TOKEN"))
-    OWNER_ID = int(env.get('OWNER_ID', '7978482443'))
+    API_ID = int(env.get("API_ID", "26649585"))
+    API_HASH = str(env.get("API_HASH", "588a3ea6fd01ae88bd2e10fed7d55b2c"))
+    BOT_TOKEN = str(env.get("BOT_TOKEN", "7696917939:AAG7VEjahxzgNR_Ut3v9EeGCDta13LRusxk"))
+    OWNER_ID = int(env.get('OWNER_ID', '7822720438'))
     WORKERS = int(env.get("WORKERS", "6"))  # 6 workers = 6 commands at once
-    DATABASE_URL = str(env.get('DATABASE_URL'))
-    UPDATES_CHANNEL = str(env.get('UPDATES_CHANNEL', "Telegram"))
+    DATABASE_URL = str(env.get('DATABASE_URL', "mongodb+srv://rohanahamed75:gt4RXJZ1mUtOh4Xv@mmtg.0ong5.mongodb.net/?retryWrites=true&w=majority&appName=mmtg"))
+    UPDATES_CHANNEL = str(env.get('UPDATES_CHANNEL', "RM_Movie_Flix"))
     SESSION_NAME = str(env.get('SESSION_NAME', 'FileStream'))
-    FORCE_SUB_ID = env.get('FORCE_SUB_ID', None)
-    FORCE_SUB = env.get('FORCE_UPDATES_CHANNEL', False)
+    FORCE_SUB_ID = env.get('FORCE_SUB_ID', "-1002238603343")
+    FORCE_SUB = env.get('FORCE_UPDATES_CHANNEL', True)
     FORCE_SUB = True if str(FORCE_SUB).lower() == "true" else False
     SLEEP_THRESHOLD = int(env.get("SLEEP_THRESHOLD", "60"))
-    FILE_PIC = env.get('FILE_PIC', "https://graph.org/file/5bb9935be0229adf98b73.jpg")
-    START_PIC = env.get('START_PIC', "https://graph.org/file/290af25276fa34fa8f0aa.jpg")
+    FILE_PIC = env.get('FILE_PIC', "https://envs.sh/wFL.jpg")
+    START_PIC = env.get('START_PIC', "https://envs.sh/wFI.jpg")
     VERIFY_PIC = env.get('VERIFY_PIC', "https://graph.org/file/736e21cc0efa4d8c2a0e4.jpg")
     MULTI_CLIENT = False
-    FLOG_CHANNEL = int(env.get("FLOG_CHANNEL", None))   # Logs channel for file logs
-    ULOG_CHANNEL = int(env.get("ULOG_CHANNEL", None))   # Logs channel for user logs
+    FLOG_CHANNEL = int(env.get("FLOG_CHANNEL", "-1002420046638"))   # Logs channel for file logs
+    ULOG_CHANNEL = int(env.get("ULOG_CHANNEL", "-1002312610528"))   # Logs channel for user logs
     MODE = env.get("MODE", "primary")
     SECONDARY = True if MODE.lower() == "secondary" else False
     AUTH_USERS = list(set(int(x) for x in str(env.get("AUTH_USERS", "")).split()))
